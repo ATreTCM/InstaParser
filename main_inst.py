@@ -20,8 +20,8 @@ class InstagramRateController(instaloader.RateController):
 insta = instaloader.Instaloader(rate_controller=lambda ctx: InstagramRateController(ctx))
 
 
-USER = 'tretiakov306'
-PASSWORD = 'fkbcf2018'
+USER = input('Login: ')
+PASSWORD = input('Password: ')
 
 
 insta.login(USER, PASSWORD)
