@@ -1,14 +1,17 @@
 from django.shortcuts import render
 from django.views.generic import View
 
-from models import UserInfo
-from service import MainInstParser, insta
-
-class Create_insta_data(View):
+from .models import UserInfo
+from .service import MainInstParser, insta
+       
+class CreateInstaData(View):
     
     template_name = 'main_inst/index.html'
-    context = {}
-    
+ 
+    def get(self, request):
+        print('fff')
+        return render(request, self.template_name)
+        
     def post(self, request):
         users_value = request.POST
         data_base = UserInfo()
@@ -30,3 +33,5 @@ class Create_insta_data(View):
             data_base.folowing = data['following']
             data_base.user_id = data['ig_id']
             data_base.save()
+            
+        return render(request, self.template_name)

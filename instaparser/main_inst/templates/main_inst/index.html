@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>{% block title %} Головна {% endblock %} - ToDo</title>
+        <style>
+            body {
+                background-color: #333333;
+                color: white;
+                font-family: 'Rubik', sans-serif;
+            }
+
+            a {
+                color: white;
+            }
+
+            .form_search {
+                display: flex;
+                flex-direction: column;
+                width: 200px;
+                margin: 200px auto;
+            }
+
+            .inst_search {
+                margin-bottom: 10px;
+            }
+
+            .inst_search:last-child {
+                margin-top: 15px;
+            }
+        </style>
+    </head>
+    <body>
+        <form class="form_search" method="post">
+            {% csrf_token %}
+            <label class="inst_search" for="inst-search">Write some keywords...</label>
+            <input class="inst_search" id="inst-search" type="text" placeholder="Search" name="search">
+            <input class="inst_search" type="submit" value="Send">
+        </form>
+    </body>
+</html>
