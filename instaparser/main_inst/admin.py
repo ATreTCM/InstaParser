@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import UserInfo
+from .models import UserInfo, SearchData
 
 class UserInfoAdmin(admin.ModelAdmin):
     
@@ -35,3 +35,19 @@ class UserInfoAdmin(admin.ModelAdmin):
         )
     
 admin.site.register(UserInfo, UserInfoAdmin)
+
+class SearchDataAdmin(admin.ModelAdmin):
+    
+    list_display = (
+        'keywords',
+        )
+    
+    list_filter = (
+        'keywords',
+        )
+    
+    search_fields = (
+        'keywords', 
+        )
+    
+admin.site.register(SearchData, SearchDataAdmin)

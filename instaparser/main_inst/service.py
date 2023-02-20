@@ -26,6 +26,7 @@ class MainInstParser:
     def __init__(self, search_data, insta) -> None:
         self.search_data = search_data
         self.insta = insta
+        self.data = instaloader.TopSearchResults(self.insta.context, self.search_data)
         self.finish_data_list = []
         
     def followers_list(self, func):
@@ -56,15 +57,12 @@ class MainInstParser:
             return ""
         
     def get_profiles_data(self):
-        data = instaloader.TopSearchResults(self.insta.context, self.search_data)
-        for profile in data.get_profiles():
+        for profile in self.data.get_profiles():
             tags = []
-            insta.download_profilepic(profile)
-            for index,post in enumerate(profile.get_posts()):
+            '''for index,post in enumerate(profile.get_posts()):
                 if index<50:
-                    insta.download_post(post, target=profile.userid)
                     get_tegs=post.caption_hashtags
-                    tags.append(get_tegs)
+                    tags.append(get_tegs)'''
                       
             info = {
                 'url': f'https://www.instagram.com/{profile.username}/',
@@ -84,4 +82,11 @@ class MainInstParser:
                 }
             
             self.finish_data_list.append(info)
-                
+        
+    def download_data(self):
+        for profile in self.data.get_profiles():
+            insta.download_profilepic(profile)
+            for index,post in enumerate(profile.get_posts()):
+                if index<50:
+                    insta.download_post(post, target=profile.userid)
+                   

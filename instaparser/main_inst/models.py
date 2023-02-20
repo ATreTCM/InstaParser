@@ -1,6 +1,27 @@
 from django.db import models
 
+
+class SearchData(models.Model):
+    
+    keywords = models.CharField(
+        max_length=100,
+        verbose_name='ключевые слова'
+        )
+    class Meta:
+        ordering = ('keywords',)
+        verbose_name = 'ключевое слово'
+        verbose_name_plural = 'ключевые слова'
+
+    def __str__(self):
+        return self.keywords
+
+    
 class UserInfo(models.Model):
+    
+    search_data = models.ForeignKey(
+        SearchData, 
+        on_delete= models.CASCADE
+        )
     
     url = models.CharField(
         max_length=50,
@@ -65,10 +86,11 @@ class UserInfo(models.Model):
         max_length=50,
         verbose_name='id'
         )
-    
-    def __str__(self):
-        return self.full_name
-    
     class Meta:
         verbose_name = 'Информация пользователя'
         verbose_name_plural = 'Информация пользователей'
+
+    def __str__(self):
+        return self.full_name
+    
+    

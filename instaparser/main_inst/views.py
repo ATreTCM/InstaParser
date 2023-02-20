@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import View
 
-from .models import UserInfo
+from .models import UserInfo, SearchData
 from .service import MainInstParser, insta
        
 class CreateInstaData(View):
@@ -15,6 +15,7 @@ class CreateInstaData(View):
     def post(self, request):
         users_value = request.POST
         data_base = UserInfo()
+        search_data = SearchData()
         parse_data = MainInstParser(users_value, insta)
         parse_data.get_profiles_data()
         for data in parse_data.finish_data_list:
@@ -33,5 +34,6 @@ class CreateInstaData(View):
             data_base.folowing = data['following']
             data_base.user_id = data['ig_id']
             data_base.save()
+            search_data.userInfo_set.add(data_base, bulk =False)
             
         return render(request, self.template_name)
