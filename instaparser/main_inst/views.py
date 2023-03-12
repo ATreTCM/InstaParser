@@ -9,14 +9,13 @@ class CreateInstaData(View):
     template_name = 'main_inst/index.html'
  
     def get(self, request):
-        print('fff')
         return render(request, self.template_name)
         
     def post(self, request):
-        users_value = request.POST
+        users_value = request.POST.dict()
         data_base = UserInfo()
         search_data = SearchData()
-        parse_data = MainInstParser(users_value, insta)
+        parse_data = MainInstParser(users_value['search'], insta)
         parse_data.get_profiles_data()
         for data in parse_data.finish_data_list:
             data_base.url = data['url']
@@ -35,5 +34,8 @@ class CreateInstaData(View):
             data_base.user_id = data['ig_id']
             data_base.save()
             search_data.userInfo_set.add(data_base, bulk =False)
+            
+        if search_data['download'] == 'on':
+            parse_data.download_data()
             
         return render(request, self.template_name)

@@ -59,10 +59,10 @@ class MainInstParser:
     def get_profiles_data(self):
         for profile in self.data.get_profiles():
             tags = []
-            '''for index,post in enumerate(profile.get_posts()):
+            for index,post in enumerate(profile.get_posts()):
                 if index<50:
                     get_tegs=post.caption_hashtags
-                    tags.append(get_tegs)'''
+                    tags.append(get_tegs)
                       
             info = {
                 'url': f'https://www.instagram.com/{profile.username}/',
